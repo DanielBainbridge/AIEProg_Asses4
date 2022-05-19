@@ -1,7 +1,8 @@
 #pragma once
 #include "raylib.h"
 #include <vector>
-
+#include "Matrix3.h"
+#include "Vector3.h"
 using namespace std;
 
 class GameObject {
@@ -10,22 +11,23 @@ public:
 	vector<GameObject> childrenAddPending;
 	vector<GameObject> childrenRemovePending;
 protected:
-	Matrix localTransform;
-	Matrix globalTransform;
+	GameObject* parent = nullptr;
+	Matrix3 localTransform;
+	Matrix3 globalTransform;
 public:
-	void AddChild();
-	void RemoveChild();
+	void AddChild(GameObject child);
+	void RemoveChild(GameObject child);
 	void RemoveFromParent();
-	void CopyTransformToLocal();
+	void CopyTransformToLocal(Matrix3 t);
 	void UpdateTransform();
-	void SetPosition();
-	void SetRotate();
-	void Rotate();
-	void Translate();
-	void TranslateLocal();
-	void DistanceTo();
-	void OnUpdate();
-	void OnDraw();
-	void Update();
+	void SetPosition(float x, float y);
+	void SetRotate(float radians);
+	void Rotate(float radians);
+	void Translate(Vector3 v);
+	void TranslateLocal(Vector3 v);
+	void DistanceTo(GameObject obj);
+	virtual void OnUpdate(float deltatime);
+	virtual void OnDraw();
+	void Update(float deltatime);
 	void Draw();
 };
