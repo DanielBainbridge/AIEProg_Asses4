@@ -33,8 +33,8 @@ inline Matrix3 Matrix3::operator*(Matrix3 &a) {
         (a.m20 * m02) + (a.m21 * m12) + (a.m22 * m22)
 	);
 }
-inline Vector3 Matrix3::operator*(Vector3 &a) {
-    return Vector3(
+inline MyVector Matrix3::operator*(MyVector &a) {
+    return MyVector(
         (m00 * a.x) + (m10 * a.y) + (m20 * a.z),
         (m01 * a.x) + (m11 * a.y) + (m21 * a.z),
         (m02 * a.x) + (m12 * a.y) + (m22 * a.z)
@@ -44,7 +44,7 @@ Matrix3 Matrix3::SetTranslation(float x, float y) {
     m20 = x; m21 = y;
     return *this;
 }
-void Matrix3::Translate(Vector3 v) {
+void Matrix3::Translate(MyVector v) {
     Matrix3 m = Matrix3(1);
     m.SetTranslation(v.x, v.y);
     Set(*this * m);
@@ -70,7 +70,7 @@ Matrix3 Matrix3::SetRotateZ(double rad) {
         0, 0, 1);    
     return *this;
 }
-void Matrix3::Set(Matrix3 m) {
+void Matrix3::Set(Matrix3 m){
     m00 = m.m00;
     m01 = m.m01;
     m02 = m.m02;

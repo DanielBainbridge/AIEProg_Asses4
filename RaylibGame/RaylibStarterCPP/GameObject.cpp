@@ -2,27 +2,29 @@
 #include "GameObject.h"
 #include <cassert>
 
-
-void GameObject::AddChild(GameObject child){
-	assert(child.parent == nullptr);
-	child.parent = this;
+void GameObject::AddChild(GameObject* child){
+	assert(child->parent == nullptr);
+	child->parent = this;
 	childrenAddPending.push_back(child);
 }
-void GameObject::RemoveChild(GameObject child){
-	if (child.parent == this)
+void GameObject::RemoveChild(GameObject* child){
+	if (child->parent == this)
 	{
 		childrenRemovePending.push_back(child);
-		child.parent = nullptr;
+		child->parent = nullptr;
 	}
 }
 void GameObject::RemoveFromParent(){
 	if (parent != nullptr) {
-		parent->RemoveChild(*this);
+		parent->RemoveChild(this);
 	}
 }
 void GameObject::CopyTransformToLocal(Matrix3 t){
 	localTransform.Set(t);
 	UpdateTransform();
+}
+MyVector GameObject::GlobalTransformAsVector() {
+	return MyVector(globalTransform.m20, globalTransform.m21, globalTransform.m22);
 }
 void GameObject::UpdateTransform(){
 	if (parent != nullptr)
@@ -31,8 +33,8 @@ void GameObject::UpdateTransform(){
 	}
 	else
 		globalTransform = localTransform;
-	for(GameObject child : children){
-		child.UpdateTransform();
+	for(GameObject* child : children){
+		child->UpdateTransform();
 	}
 }
 void GameObject::SetPosition(float x, float y){
@@ -47,14 +49,16 @@ void GameObject::Rotate(float radians){
 	Matrix3 temp = localTransform.SetRotateZ(radians);
 	localTransform = localTransform * temp;
 }
-void GameObject::Translate(Vector3 v){
-
+void GameObject::Translate(MyVector v){
+	localTransform.m20 += v.x; localTransform.m21 += v.y;
+	UpdateTransform();
 }
-void GameObject::TranslateLocal(Vector3 v){
-
+void GameObject::TranslateLocal(MyVector v){
+	localTransform.Translate(v);
+	UpdateTransform();
 }
-void GameObject::DistanceTo(GameObject obj){
-
+MyVector GameObject::DistanceTo(GameObject obj){
+	return obj.GlobalTransformAsVector() - this->GlobalTransformAsVector();
 }
 void GameObject::OnUpdate(float deltatime){
 
@@ -63,8 +67,32 @@ void GameObject::OnDraw(){
 
 }
 void GameObject::Update(float deltatime){
-
+	for (GameObject* child : children) {
+		child->Update(deltatime);
+	}
+	for (GameObject* child : childrenAddPending) {
+		children.push_back(child);
+		child->UpdateTransform();
+	}
+	childrenAddPending.clear();
+	for (GameObject* chitorem : childrenRemovePending) {
+		//this is not going to work it will find not the right instance of objects and remove them
+		//if (it != children.end()){
+		//	children.erase(it);
+		//}
+		for (GameObject* child : children) {
+			if (child == chitorem){
+				auto it = std::find(children.begin(), children.end(), child);
+				children.erase(it);
+			}
+		}
+	}
+	childrenRemovePending.clear();
+	OnUpdate(deltatime);
 }
 void GameObject::Draw(){
-
+	OnDraw();
+	for (GameObject* child : children) {
+		child->Draw();
+	}
 }

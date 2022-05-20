@@ -1,22 +1,21 @@
 #pragma once
-struct Vector3 {
-	float x;
-	float y;
-	float z;
+struct MyVector {
+	float x;	float y;	float z;
 public:
-	Vector3(float x, float y, float z) {};
-	~Vector3();
-	inline Vector3 operator+(Vector3 a);
-	inline Vector3 operator-(Vector3 a);
-	inline Vector3 operator*(float f);
-	inline Vector3 operator/(float f);
-	inline bool operator==(Vector3 a);
-	inline bool operator!=(Vector3 a);
+	MyVector(float x, float y, float z);
+	~MyVector();
+	MyVector operator+(MyVector a);
+	MyVector operator-(MyVector a);
+	MyVector operator*(float f);
+	MyVector operator/(float f);
+	bool operator==(MyVector a);
+	bool operator!=(MyVector a);
 	float Magnitude();
-	float Dot(Vector3 a);
-	Vector3 Cross(Vector3 a);
-	Vector3 Normalise();
-	Vector3 Min(Vector3 a);
-	Vector3 Max(Vector3 a);
-	Vector3 Clamp(Vector3 t, Vector3 a, Vector3 b);
+	float Dot(MyVector a);
+	MyVector Cross(MyVector a);
+	MyVector Normalise();
+	MyVector Min(MyVector a);
+	MyVector Max(MyVector a);
+	MyVector Clamp(MyVector t, MyVector a, MyVector b);
 };
+

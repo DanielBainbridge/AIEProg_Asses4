@@ -4,28 +4,28 @@
 #include "Matrix3.h"
 #include "Vector3.h"
 using namespace std;
-
 class GameObject {
 public:
-	vector<GameObject> children;
-	vector<GameObject> childrenAddPending;
-	vector<GameObject> childrenRemovePending;
+	vector<GameObject*> children;
+	vector<GameObject*> childrenAddPending;
+	vector<GameObject*> childrenRemovePending;
 protected:
 	GameObject* parent = nullptr;
 	Matrix3 localTransform;
 	Matrix3 globalTransform;
 public:
-	void AddChild(GameObject child);
-	void RemoveChild(GameObject child);
+	void AddChild(GameObject* child);
+	void RemoveChild(GameObject* child);
 	void RemoveFromParent();
 	void CopyTransformToLocal(Matrix3 t);
+	MyVector GlobalTransformAsVector();
 	void UpdateTransform();
 	void SetPosition(float x, float y);
 	void SetRotate(float radians);
 	void Rotate(float radians);
-	void Translate(Vector3 v);
-	void TranslateLocal(Vector3 v);
-	void DistanceTo(GameObject obj);
+	void Translate(MyVector v);
+	void TranslateLocal(MyVector v);
+	MyVector DistanceTo(GameObject obj);
 	virtual void OnUpdate(float deltatime);
 	virtual void OnDraw();
 	void Update(float deltatime);
