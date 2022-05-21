@@ -1,5 +1,8 @@
 #include "Vector3.h"
 #include <cmath>
+MyVector::MyVector() {
+	x = y = z = 0;
+}
 MyVector::MyVector(float x, float y, float z) {
 	this->x = x;
 	this->y = y;

@@ -2,6 +2,7 @@
 struct MyVector {
 	float x;	float y;	float z;
 public:
+	MyVector();
 	MyVector(float x, float y, float z);
 	~MyVector();
 	MyVector operator+(MyVector a);
