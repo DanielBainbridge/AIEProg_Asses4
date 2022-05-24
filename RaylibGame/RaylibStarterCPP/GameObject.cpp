@@ -60,12 +60,12 @@ void GameObject::TranslateLocal(MyVector v){
 MyVector GameObject::DistanceTo(GameObject obj){
 	return obj.GlobalTransformAsVector() - this->GlobalTransformAsVector();
 }
-void GameObject::OnUpdate(float deltatime){
-
-}
-void GameObject::OnDraw(){
-
-}
+//void GameObject::OnUpdate(float deltatime){
+//
+//}
+//void GameObject::OnDraw(){
+//
+//}
 void GameObject::Update(float deltatime){
 	for (GameObject* child : children) {
 		child->Update(deltatime);

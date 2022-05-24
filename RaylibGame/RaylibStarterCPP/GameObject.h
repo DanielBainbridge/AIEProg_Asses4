@@ -3,8 +3,9 @@
 #include <vector>
 #include "Matrix3.h"
 #include "Vector3.h"
+#include "Collider.h"
 using namespace std;
-class GameObject {
+class GameObject{
 public:
 	vector<GameObject*> children;
 	vector<GameObject*> childrenAddPending;
