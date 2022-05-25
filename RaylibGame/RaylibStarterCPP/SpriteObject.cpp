@@ -1,5 +1,6 @@
 #include "SpriteObject.h"
-
+SpriteObject::SpriteObject(){
+}
 vector<MyVector> SpriteObject::Corners() {
 	corners.clear();
 	corners.push_back(GlobalTransformAsVector() + parent->GlobalTransformAsVector());
@@ -10,9 +11,14 @@ vector<MyVector> SpriteObject::Corners() {
 }
 void SpriteObject::Load(const char* filename) {
 	Image img = LoadImage(filename);
-	texture = LoadTextureFromImage(img);
+	texture = new Texture2D(LoadTextureFromImage(img));
+}
+SpriteObject::SpriteObject(const char* filename) {
+	Load(filename);
+	Height = texture->height;
+	Width = texture->width;
 }
 void SpriteObject::OnDraw() {
-	float rotation = (float)atan2(globalTransform.m01, globalTransform.m00) * (float)(180 / PI);
-	DrawTextureEx(texture, Vector2{ globalTransform.m20, globalTransform.m21 }, rotation, 1, colour);
+	float rotation = (float)atan2(globalTransform->m01, globalTransform->m00) * (float)(180 / PI);
+	DrawTextureEx(*texture, Vector2{ globalTransform->m20, globalTransform->m21 }, rotation, 1, colour);
 }

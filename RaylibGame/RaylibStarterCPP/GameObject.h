@@ -12,8 +12,8 @@ public:
 	vector<GameObject*> childrenRemovePending;
 protected:
 	GameObject* parent = nullptr;
-	Matrix3 localTransform;
-	Matrix3 globalTransform;
+	Matrix3* localTransform = new Matrix3(1);
+	Matrix3* globalTransform = new Matrix3(1);
 public:
 	void AddChild(GameObject* child);
 	void RemoveChild(GameObject* child);

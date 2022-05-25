@@ -2,15 +2,15 @@
 #include "GameObject.h"
 #include "SpriteObject.h"
 class Game;
-class Player : GameObject{
+class Player : public GameObject{
 public:
 	Player(Game* owner);
 	Game* game;
-	SpriteObject playerSprite;
+	SpriteObject* playerSprite;
 	float speed;
-	float maxspeed = 500.0f;
+	float maxspeed = -500.0f;
 	float mass;
 	float rotation;
 	void Intersects(Collider other);
-	void Player::OnUpdate(float deltatime);
+	void OnUpdate(float deltatime) override;
 };
