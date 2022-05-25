@@ -6,10 +6,10 @@ class SpriteObject : public GameObject {
 public:
 	SpriteObject();
 	Texture2D* texture;
-	vector<MyVector> corners;
+	vector<MyVector*> corners;
 	Color colour = WHITE;
 	float Width; float Height;
-	vector<MyVector> Corners();
+	vector<MyVector*> Corners();
 	void Load(const char* filename);
 	SpriteObject(const char* filename);
 	virtual void OnDraw();

@@ -12,6 +12,9 @@ Player::Player(Game* owner) {
 	this->AddChild(playerSprite);
 	this->SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
 }
+void Player::Intersects(Collider other) {
+
+}
 void Player::OnUpdate(float deltatime) {
 	if (IsKeyDown(KEY_W)){
 		if (speed > maxspeed) {
@@ -37,7 +40,7 @@ void Player::OnUpdate(float deltatime) {
 		}
 	}
 	if (IsKeyPressed(KEY_SPACE)) {
-		new Bullet(this->game, this->GlobalTransformAsVector());
+		new Bullet(this->game, this->localTransform);
 		std::printf("a bullet has been fired dillweed");
 	}
 	this->TranslateLocal(MyVector(0, speed, 0) * deltatime);

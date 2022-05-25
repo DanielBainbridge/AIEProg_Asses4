@@ -30,12 +30,12 @@ vector<MyVector> AABB::Corners() {
 	corners.push_back(MyVector(Max.x, Min.y, Min.z));
 	return corners;
 }
-void AABB::Fit(vector<MyVector> points) {
+void AABB::Fit(vector<MyVector*> points) {
 	MyVector min = MyVector(INFINITY, INFINITY, INFINITY);
 	MyVector max = MyVector(INFINITY * -1, INFINITY * -1, INFINITY * -1);
-	for (MyVector p : points) {
-		min = min.Min(p);
-		max = max.Max(p);
+	for (MyVector* p : points) {
+		min = min.Min(*p);
+		max = max.Max(*p);
 	}
 	origin = (min + max) * 0.5f;
 	extents = max - origin;

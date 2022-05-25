@@ -15,6 +15,7 @@ void Game::Init() {
 	verbounds.push_back(Plane(MyVector(-1, 0, 0), screenWidth));
 	verbounds.push_back(Plane(MyVector(1, 0, 0), 0));
 	Player* player = new Player(this);
+	Asteroid* asteroid = new Asteroid(this, 30.f, 2);
 }
 void Game::ShutDown() {
 }

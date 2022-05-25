@@ -19,14 +19,14 @@ public:
 	void RemoveChild(GameObject* child);
 	void RemoveFromParent();
 	void CopyTransformToLocal(Matrix3 t);
-	MyVector GlobalTransformAsVector();
+	MyVector* GlobalTransformAsVector();
 	void UpdateTransform();
 	void SetPosition(float x, float y);
 	void SetRotate(float radians);
 	void Rotate(float radians);
 	void Translate(MyVector v);
 	void TranslateLocal(MyVector v);
-	MyVector DistanceTo(GameObject obj);
+	MyVector DistanceTo(GameObject* obj);
 	virtual void OnUpdate(float deltatime);
 	virtual void OnDraw();
 	void Update(float deltatime);

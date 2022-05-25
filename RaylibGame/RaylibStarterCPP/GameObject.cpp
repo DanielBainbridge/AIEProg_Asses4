@@ -23,8 +23,8 @@ void GameObject::CopyTransformToLocal(Matrix3 t){
 	localTransform->Set(t);
 	UpdateTransform();
 }
-MyVector GameObject::GlobalTransformAsVector() {
-	return MyVector(globalTransform->m20, globalTransform->m21, globalTransform->m22);
+MyVector* GameObject::GlobalTransformAsVector() {
+	return new MyVector(this->globalTransform->m20, this->globalTransform->m21, this->globalTransform->m22);
 }
 void GameObject::UpdateTransform(){
 	if (parent != nullptr){
@@ -58,8 +58,8 @@ void GameObject::TranslateLocal(MyVector v){
 	localTransform->Translate(v);
 	UpdateTransform();
 }
-MyVector GameObject::DistanceTo(GameObject obj){
-	return obj.GlobalTransformAsVector() - this->GlobalTransformAsVector();
+MyVector GameObject::DistanceTo(GameObject* obj){
+	return *obj->GlobalTransformAsVector() - *this->GlobalTransformAsVector();
 }
 void GameObject::OnUpdate(float deltatime){
 }

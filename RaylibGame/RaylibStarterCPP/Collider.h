@@ -19,7 +19,7 @@ public:
 	bool IsEmpty();
 	void Empty();
 	vector<MyVector> Corners();
-	void Fit(vector<MyVector> points);
+	void Fit(vector<MyVector*> points);
 	bool Overlaps(MyVector p);
 	bool Overlaps(AABB other);
 	MyVector ClosestPoint(MyVector p);

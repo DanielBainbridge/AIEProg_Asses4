@@ -1,10 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include <time.h>
+#include "Asteroid.h"
 class Game {
 public:
 	Game(const char* bgFileName);
 	GameObject rootObject;
+	vector<Asteroid*> enemies;
 	int score;
 	float deltaTime;
 	float oldTime;
