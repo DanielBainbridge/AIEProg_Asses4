@@ -23,8 +23,8 @@ void GameObject::CopyTransformToLocal(Matrix3 t){
 	localTransform->Set(t);
 	UpdateTransform();
 }
-MyVector* GameObject::GlobalTransformAsVector() {
-	return new MyVector(this->globalTransform->m20, this->globalTransform->m21, this->globalTransform->m22);
+MyVector GameObject::GlobalTransformAsVector() {
+	return MyVector(this->globalTransform->m20, this->globalTransform->m21, this->globalTransform->m22);
 }
 void GameObject::UpdateTransform(){
 	if (parent != nullptr){
@@ -59,7 +59,7 @@ void GameObject::TranslateLocal(MyVector v){
 	UpdateTransform();
 }
 MyVector GameObject::DistanceTo(GameObject* obj){
-	return *obj->GlobalTransformAsVector() - *this->GlobalTransformAsVector();
+	return obj->GlobalTransformAsVector() - this->GlobalTransformAsVector();
 }
 void GameObject::OnUpdate(float deltatime){
 }
@@ -77,8 +77,9 @@ void GameObject::Update(float deltatime){
 	for (GameObject* chitorem : childrenRemovePending) {
 		for (GameObject* child : children) {
 			if (child == chitorem){
-				auto it = std::find(children.begin(), children.end(), child);
+				auto it = std::find(children.begin(), children.end(), child);				
 				children.erase(it);
+				delete chitorem;
 			}
 		}
 	}

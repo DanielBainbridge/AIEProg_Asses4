@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     //--------------------------------------------------------------------------------------
     Game* game = new Game("..\\Background.png");
     InitWindow(1920, 1080, "Asteroids");
-    ToggleFullscreen();
+    //ToggleFullscreen();
     game->Init();
     
     //--------------------------------------------------------------------------------------

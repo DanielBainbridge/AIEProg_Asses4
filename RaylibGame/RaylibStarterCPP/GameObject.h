@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "Collider.h"
 using namespace std;
-class GameObject{
+class GameObject : public Collider{
 public:
 	vector<GameObject*> children;
 	vector<GameObject*> childrenAddPending;
@@ -19,7 +19,7 @@ public:
 	void RemoveChild(GameObject* child);
 	void RemoveFromParent();
 	void CopyTransformToLocal(Matrix3 t);
-	MyVector* GlobalTransformAsVector();
+	MyVector GlobalTransformAsVector();
 	void UpdateTransform();
 	void SetPosition(float x, float y);
 	void SetRotate(float radians);

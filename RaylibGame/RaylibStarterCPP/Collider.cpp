@@ -116,8 +116,8 @@ bool Sphere::Intersects(Collider* other) {
 		bool result = this->Overlaps(*otherbox);
 		return result;
 	}
-	else if (otherbox != nullptr) {
-		bool result = this->Overlaps(*otherbox);
+	else if (othersphere != nullptr) {
+		bool result = this->Overlaps(*othersphere);
 		return result;
 	}
 }

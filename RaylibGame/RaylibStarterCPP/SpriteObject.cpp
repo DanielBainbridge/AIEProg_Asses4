@@ -1,12 +1,15 @@
 #include "SpriteObject.h"
 SpriteObject::SpriteObject(){
 }
+SpriteObject::~SpriteObject() {
+	delete texture;
+}
 vector<MyVector*> SpriteObject::Corners() {
 	corners.clear();
-	corners.push_back(new MyVector(this->GlobalTransformAsVector() + *parent->GlobalTransformAsVector()));
-	corners.push_back(new MyVector(this->GlobalTransformAsVector() + MyVector(Width, 0, 0) + *parent->GlobalTransformAsVector()));
-	corners.push_back(new MyVector(this->GlobalTransformAsVector() + MyVector(0, Height, 0) + *parent->GlobalTransformAsVector()));
-	corners.push_back(new MyVector(this->GlobalTransformAsVector() + MyVector(Width, Height, 0) + *parent->GlobalTransformAsVector()));
+	corners.push_back(new MyVector(this->GlobalTransformAsVector() + parent->GlobalTransformAsVector()));
+	corners.push_back(new MyVector(this->GlobalTransformAsVector() + MyVector(Width, 0, 0) + parent->GlobalTransformAsVector()));
+	corners.push_back(new MyVector(this->GlobalTransformAsVector() + MyVector(0, Height, 0) + parent->GlobalTransformAsVector()));
+	corners.push_back(new MyVector(this->GlobalTransformAsVector() + MyVector(Width, Height, 0) + parent->GlobalTransformAsVector()));
 	return corners;
 }
 void SpriteObject::Load(const char* filename) {

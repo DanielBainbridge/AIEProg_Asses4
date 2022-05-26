@@ -6,13 +6,15 @@ class Asteroid : public GameObject{
 public:
 	int split;
 	Game* game;
-	Asteroid(Game* owner, float rotation, int split);
+	Asteroid(Game* owner, int split);
+	Asteroid(Game* owner, int split, int x, int y, float rotation);
 	~Asteroid();
-	void Intersects(Collider other);
+	void Intersects(Collider* other);
+	void Teleport();
 	void OnUpdate(float deltatime) override;
-	AABB* collider = new AABB();
+	Sphere* collider = new Sphere();
+	float rotation;
 private:
 	SpriteObject* asteroidSprite;
 	float speed = 250.0f;
-	float rotation;
 };

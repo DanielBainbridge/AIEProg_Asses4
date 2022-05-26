@@ -7,8 +7,11 @@ public:
 	Bullet(Game* owner, Matrix3* startpos);
 	~Bullet();
 	Game* game;
+	Sphere* collider = new Sphere();
 	void OnUpdate(float deltatime) override;
-	void Intersects(Collider other);
+	void Intersects(Collider* other);
+	void OutOfBounds();
+	
 private:
 	SpriteObject* bulletSprite;
 };

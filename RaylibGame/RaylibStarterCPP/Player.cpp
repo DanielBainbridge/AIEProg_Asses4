@@ -9,11 +9,32 @@ Player::Player(Game* owner) {
 	mass = 2.0f;
 	playerSprite =  new SpriteObject("..\\Player.png");
 	playerSprite->SetPosition(-playerSprite->Width / 2.0f, -playerSprite->Height / 2.0f);
+	collider->radius = playerSprite->Height / 2.0f;
 	this->AddChild(playerSprite);
 	this->SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
 }
 void Player::Intersects(Collider other) {
 
+}
+void Player::Teleport() {
+	for (Plane* p : game->verbounds) {
+		if (p->TestSide(collider->origin) == Plane::BACK)
+		{
+			if (p->d == GetScreenWidth()) {
+				this->SetPosition(0, this->globalTransform->m21);
+			}
+			else this->SetPosition(1920, this->globalTransform->m21);
+		}
+	}
+	for (Plane* p : game->horbounds) {
+		if (p->TestSide(collider->origin) == Plane::BACK)
+		{
+			if (p->d == GetScreenHeight()) {
+				this->SetPosition(this->globalTransform->m20, 0);
+			}
+			else this->SetPosition(this->globalTransform->m20, 1080);
+		}
+	}
 }
 void Player::OnUpdate(float deltatime) {
 	if (IsKeyDown(KEY_W)){
@@ -44,4 +65,6 @@ void Player::OnUpdate(float deltatime) {
 		std::printf("a bullet has been fired dillweed");
 	}
 	this->TranslateLocal(MyVector(0, speed, 0) * deltatime);
+	collider->origin.x = localTransform->m20; collider->origin.y = localTransform->m21;
+	Teleport();
 }

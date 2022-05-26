@@ -5,6 +5,7 @@
 class SpriteObject : public GameObject {
 public:
 	SpriteObject();
+	~SpriteObject();
 	Texture2D* texture;
 	vector<MyVector*> corners;
 	Color colour = WHITE;
