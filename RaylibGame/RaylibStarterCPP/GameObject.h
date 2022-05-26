@@ -10,8 +10,8 @@ public:
 	vector<GameObject*> children;
 	vector<GameObject*> childrenAddPending;
 	vector<GameObject*> childrenRemovePending;
-protected:
 	GameObject* parent = nullptr;
+protected:
 	Matrix3* localTransform = new Matrix3(1);
 	Matrix3* globalTransform = new Matrix3(1);
 public:

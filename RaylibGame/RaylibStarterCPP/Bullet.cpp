@@ -25,13 +25,19 @@ void Bullet::Intersects(Collider* other) {
 					if (astpointer == ast) {
 						auto it = std::find(ast->game->enemies.begin(), ast->game->enemies.end(), ast);
 						ast->game->enemies.erase(it);
-					}
-						
+					}						
 				}
 				ast->RemoveFromParent();
 				this->RemoveFromParent();
 			}
 			else {
+				for (Asteroid* astpointer : ast->game->enemies) {
+					if (astpointer == ast) {
+						auto it = std::find(ast->game->enemies.begin(), ast->game->enemies.end(), ast);
+						ast->game->enemies.erase(it);
+					}
+				}
+				ast->RemoveFromParent();
 				new Asteroid(ast->game, ast->split - 1, ast->GlobalTransformAsVector().x, ast->GlobalTransformAsVector().y, ast->rotation);
 				new Asteroid(ast->game, ast->split - 1, ast->GlobalTransformAsVector().x, ast->GlobalTransformAsVector().y, ast->rotation);
 
@@ -68,8 +74,7 @@ void Bullet::OnUpdate(float deltatime) {
 	for (GameObject* go : game->rootObject.children) {
 		this->Intersects(go);
 	}
-	if (this->parent == nullptr)
-	{
+	if (this->parent == nullptr) {
 		printf("this object was removed");
 	}
 }

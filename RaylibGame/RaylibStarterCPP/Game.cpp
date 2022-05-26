@@ -24,11 +24,11 @@ void Game::ShutDown() {
 void Game::Update() {
 	if (enemies.empty())
 	{
+		level++;
 		for (size_t i = 0; i < level; i++)
 		{
 			Asteroid* asteroid = new Asteroid(this, 1);
 		}
-		level++;
 	}
 	deltaTime = (clock() - oldTime) / 1000.0f;
 	oldTime = clock();
@@ -38,13 +38,17 @@ void Game::Draw() {
 	BeginDrawing();
 	DrawTexture(bgTexture, 0, 0, WHITE);
 	DrawText("Score:", 5, 20, 45, WHITE);
+	DrawText("Lives:", 1750, 20, 45, WHITE);
 	std::string tmpsc = std::to_string(score);
 	const char* sch = tmpsc.c_str();
 	std::string tmpli = std::to_string(player->lives);
 	const char* plive = tmpli .c_str();
 	DrawText(sch, 160, 20, 45, WHITE);
-	DrawText("Lives:", 1750, 20, 45, WHITE);
-	DrawText(plive, 1885, 20, 45, WHITE);
+	if (player->alive == false) {
+		DrawText("Game Over!", 750, 500, 65, RED);
+		DrawText("0", 1885, 20, 45, WHITE);
+	}
+	else	DrawText(plive, 1885, 20, 45, WHITE);
 	rootObject.Draw();
 	EndDrawing();
 }

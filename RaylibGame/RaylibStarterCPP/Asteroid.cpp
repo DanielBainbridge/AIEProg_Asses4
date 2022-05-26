@@ -13,6 +13,7 @@ Asteroid::Asteroid(Game* owner, int split) {
 	this->localTransform->SetTranslation(rand() % 1920, rand() % 1080);
 	this->AddChild(asteroidSprite);
 	game->rootObject.AddChild(this);
+	game->enemies.push_back(this);
 	collider->radius = asteroidSprite->Width / 2.0;
 	collider->origin.x = localTransform->m20; collider->origin.y = localTransform->m21;
 }
@@ -28,6 +29,7 @@ Asteroid::Asteroid(Game* owner, int split, int x, int y, float rotation) {
 	asteroidSprite->SetPosition(-asteroidSprite->Width / 2.0, -asteroidSprite->Height / 2.0);
 	this->localTransform->SetTranslation(x, y);
 	this->AddChild(asteroidSprite);
+	game->enemies.push_back(this);
 	game->rootObject.AddChild(this);
 	collider->radius = asteroidSprite->Width / 2.0;
 	collider->origin.x = localTransform->m20; collider->origin.y = localTransform->m21;
