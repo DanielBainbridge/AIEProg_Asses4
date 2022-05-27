@@ -12,18 +12,6 @@ DataFile::~DataFile()
 	Clear();
 }
 
-void DataFile::AddRecord(string imageFilename, string name, int age)
-{
-	Image i = LoadImage(imageFilename.c_str());
-
-	Record* r = new Record;
-	r->image = i;
-	r->name = name;
-	r->age = age;
-
-	records.push_back(r);
-	recordCount++;
-}
 
 DataFile::Record* DataFile::GetRecord(int offset, string filename)
 {
@@ -97,8 +85,7 @@ void DataFile::Save(string filename)
 	outfile.close();
 }
 
-void DataFile::Load(string filename)
-{
+void DataFile::Load(string filename){
 	Clear();
 	ifstream infile(filename, ios::binary);	
 	recordCount = 0;
