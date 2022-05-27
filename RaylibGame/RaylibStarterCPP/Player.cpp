@@ -6,7 +6,7 @@ Player::Player(Game* owner) {
 	game->rootObject.AddChild(this);
 	speed = 0.0f;
 	rotation = 0.0f;
-	mass = 2.0f;
+	mass = 12.0f;
 	playerSprite = new SpriteObject("..\\Player.png");
 	playerSprite->SetPosition(-playerSprite->Width / 2.0f, -playerSprite->Height / 2.0f);
 	collider->radius = playerSprite->Height / 2.0f;
@@ -61,6 +61,7 @@ void Player::OnUpdate(float deltatime) {
 			if (speed < 0) {
 				speed += mass;
 			}
+			else speed = 0;
 		}
 		if (IsKeyDown(KEY_A)) {
 			Rotate(-0.1f);
@@ -82,6 +83,7 @@ void Player::OnUpdate(float deltatime) {
 		if (speed < 0) {
 			speed += mass * 2;
 		}
+		else speed = 0;
 	}
 	
 	this->TranslateLocal(MyVector(0, speed, 0) * deltatime);
